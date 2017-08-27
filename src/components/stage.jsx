@@ -21,7 +21,7 @@ var stage = React.createClass({
     },
     setOoxxData: function (idx, event) {
         if (this.state.win != '') return;
-        var copyState = Object.assign({}, this.state.OX);
+        var copyState = this.state.OX.slice();
         if (!copyState[idx].isClick) this.setState({ isClickBox: !this.state.isClickBox });
         if (!copyState[idx].isClick) copyState[idx].state = this.state.isClickBox ? 1 : -1;
         copyState[idx].isClick = true;
@@ -29,7 +29,7 @@ var stage = React.createClass({
         this.twoArray();
     },
     twoArray() {
-        var copyState = Object.assign([], this.state.OX);
+        var copyState = this.state.OX.slice();
         var arr = [];
         var arrInt = 0;
         var nextLevel = 0;
@@ -68,8 +68,6 @@ var stage = React.createClass({
             iSum6 += data[i][2]
             iSum7_1 += data[i][0 + i];
             iSum7_2 += data[i][2 - i];
-            iSum8_1 += data[i][0 + i];
-            iSum8_2 += data[i][2 - i];
             if (iSum1 === 3 || iSum2 === 3 || iSum3 === 3 ||
                 iSum4 === 3 || iSum5 === 3 || iSum6 === 3 ||
                 iSum7_1 === 3 || iSum7_2 === 3) {
@@ -78,7 +76,7 @@ var stage = React.createClass({
             }
             if (iSum1 === -3 || iSum2 === -3 || iSum3 === -3 ||
                 iSum4 === -3 || iSum5 === -3 || iSum6 === -3 ||
-                iSum8_1 === -3 || iSum8_2 === -3) {
+                iSum7_1 === -3 || iSum7_2 === -3) {
                 this.winAfter("X");
                 return;
             }
@@ -90,7 +88,7 @@ var stage = React.createClass({
         })
     },
     onReSet() {
-        var copyState = Object.assign([], this.state.OX);
+        var copyState = this.state.OX.slice();
         copyState.map(function (obj,idx) {
             obj.isClick = false;
             obj.state = 0;
